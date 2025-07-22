@@ -1,0 +1,125 @@
+
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  color: #fff;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .nav-title {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-title i {
+  margin-right: 8px;
+}
+
+.navbar .nav-right {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.navbar .nav-right a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.navbar .nav-right a:hover {
+  color: #00aaff;
+}
+
+.container {
+  max-width: 700px;
+  margin: 100px auto 40px auto;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+h1 {
+  color: #2c3e50;
+}
+
+input[type="text"] {
+  padding: 12px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 25px;
+  margin-top: 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.result {
+  font-size: 22px;
+  color: green;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.note {
+  margin-top: 20px;
+  color: #555;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar .nav-right {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .container {
+    margin: 80px 20px 40px 20px;
+  }
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
