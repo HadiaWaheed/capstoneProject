@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Website Security Checker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+    window.onload = function () {
+      alert("⚠️This website is intended strictly for security research and educational purposes only. Any misuse for malicious or insecure activities is strictly prohibited.");
+    };
+  </script>
+</head>
+<body>
+
+  <!-- Navbar at Top -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <span class="nav-title">🔐 Website Security Checker</span>
+    </div>
+    <div class="nav-right">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container">
+    <form action="/result" method="post">
+      <input type="text" name="url" placeholder="Enter website URL..." required>
+      <button type="submit">Check Security</button>
+    </form>
+    <p class="note">Find out if a website is <b>Secure</b>, <b>Insecure</b>, or <b>Highly Insecure</b>.</p>
+  </div>
+
+</body>
+</html>
