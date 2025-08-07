@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Security Analysis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+        .container {
+
+            background-image: url('background2.jpeg');
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: white;
+        }
+        h2 {
+            color: #333;
+        }
+        .status {
+            font-size: 1.3em;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .secure { background-color: #d4edda; color: #155724; }
+        .insecure { background-color: #fff3cd; color: #856404; }
+        .highly-insecure { background-color: #f8d7da; color: #721c24; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        ul.attack-vectors {
+            margin-top: 20px;
+            padding-left: 20px;
+            color: #721c24;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            border: 1px solid #f5c6cb;
+        }
+        ul.attack-vectors li {
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .container {
+                overflow: visible !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="reportContent">
+        <h2>🔍 Security Analysis for URL:</h2>
+        <p><strong>{{ url }}</strong></p>
+
+        {% if prediction == 'Secure' %}
+            <div class="status secure">✅ Prediction: <strong>Secure</strong></div>
+        {% elif prediction == 'Insecure' %}
+            <div class="status insecure">⚠️ Prediction: <strong>Insecure</strong></div>
+        {% elif prediction == 'Highly Insecure' %}
+            <div class="status highly-insecure">❌ Prediction: <strong>Highly Insecure</strong></div>
+        {% else %}
+            <div class="status">Prediction: <strong>{{ prediction }}</strong></div>
+        {% endif %}
+
+        {% if confidence %}
+            <p><strong>Confidence:</strong> {{ confidence | round(2) }}%</p>
+        {% endif %}
+
+        <h3>🔐 Extracted Security Features:</h3>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Status</th>
+            </tr>
+            {% for key, value in features.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{% if value == 1 %}✔ Enabled{% else %}✖ Missing{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% if attack_vectors %}
+            <h3>⚠️ Potential Attack Vectors Detected:</h3>
+            <ul class="attack-vectors">
+                {% for vector in attack_vectors %}
+                    <li>{{ vector }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No significant attack vectors detected based on the current analysis.</p>
+        {% endif %}
+
+        <a href="/" class="btn">🔄 Check Another URL</a>
+        <button onclick="savePDF()" class="btn">💾 Save Report as PDF</button>
+    </div>
+
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function savePDF() {
+            const element = document.getElementById('reportContent');
+            const opt = {
+                margin:       0.5,
+                filename:     'Security_Report.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  {
+                    scale: 2,
+                    scrollY: 0,
+                    useCORS: true
+                },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>
