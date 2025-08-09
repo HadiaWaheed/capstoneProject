@@ -24,7 +24,7 @@ The **Session Hijacking Detection System** is a web-based security tool designed
   - Random Forest Classifier  
   - Decision Tree Classifier  
   - **XGBoost** (best performing)
-  - 
+    
 - **Performance Comparison:** Validate predictions by contrasting with manual results  
 - **Live Security Scan:** Enter any URL and immediately get a detailed security analysis  
 
